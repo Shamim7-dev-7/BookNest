@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#12372a">
+  <meta name="description" content="BookNest is a digital library for discovering and reading books online.">
+  <title>BookNest | Digital Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="logo"><span class="logo-icon">B</span> BookNest</a>
+      <nav class="main-nav">
+        <a href="#home">Home</a>
+        <a href="#explore">Explore Books</a>
+        <a href="#categories">Categories</a>
+      </nav>
+      <button class="btn btn-primary" id="openAddBook" type="button">+ Add a Book</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-content">
+        <span class="eyebrow">YOUR DIGITAL READING SPACE</span>
+        <h1>Discover your next<br><span>favorite book.</span></h1>
+        <p>Explore inspiring stories, discover new ideas, and find books worth reading. Your next adventure starts here.</p>
+        <a href="#explore" class="btn btn-light">Explore the Library <span>→</span></a>
+        <div class="hero-decoration decoration-one"></div>
+        <div class="hero-decoration decoration-two"></div>
+      </div>
+    </section>
+
+    <section class="library-section container" id="explore">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">YOUR NEXT GREAT READ</span>
+          <h2>Explore the Library</h2>
+          <p class="section-description">Find a book, open its reading page, and start exploring.</p>
+        </div>
+        <div class="book-count"><span id="bookCount">0</span> books</div>
+      </div>
+
+      <div class="search-wrapper">
+        <span class="search-icon">⌕</span>
+        <input type="search" id="searchInput" placeholder="Search by book title or author..." aria-label="Search books">
+        <button id="clearSearch" class="clear-search" type="button" aria-label="Clear search" hidden>×</button>
+      </div>
+
+      <div class="category-section" id="categories">
+        <div class="category-heading">Browse by category</div>
+        <div class="category-filters" id="categoryFilters">
+          <button class="category-btn active" type="button" data-category="All Books">All Books</button>
+          <button class="category-btn" type="button" data-category="Fiction">Fiction</button>
+          <button class="category-btn" type="button" data-category="Science">Science</button>
+          <button class="category-btn" type="button" data-category="Technology">Technology</button>
+          <button class="category-btn" type="button" data-category="Personal Growth">Personal Growth</button>
+        </div>
+      </div>
+
+      <div class="library-notice">
+        <span class="notice-icon">↗</span>
+        <p>Select a book to visit its online reading page. Reading availability depends on the website and its access rules.</p>
+      </div>
+
+      <div class="book-grid" id="bookGrid"></div>
+
+      <div class="empty-state" id="emptyState" hidden>
+        <div class="empty-icon">⌕</div>
+        <h3>No books found</h3>
+        <p>Try another title, author, or category.</p>
+        <button class="btn btn-secondary" id="resetFilters" type="button">Show all books</button>
+      </div>
+    </section>
+
+    <section class="add-book-section" id="addBookSection" hidden>
+      <div class="container form-container">
+        <div class="form-heading">
+          <div>
+            <span class="eyebrow">GROW YOUR COLLECTION</span>
+            <h2>Add a New Book</h2>
+            <p>Enter the book details and its online reading link.</p>
+          </div>
+          <button class="close-form" id="closeAddBook" type="button" aria-label="Close form">×</button>
+        </div>
+
+        <form id="bookForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="bookTitle">Book Title *</label>
+              <input id="bookTitle" name="bookTitle" type="text" placeholder="Enter book title" required maxlength="150">
+            </div>
+
+            <div class="form-group">
+              <label for="bookAuthor">Author *</label>
+              <input id="bookAuthor" name="bookAuthor" type="text" placeholder="Enter author name" required maxlength="120">
+            </div>
+
+            <div class="form-group">
+              <label for="bookCategory">Category *</label>
+              <select id="bookCategory" name="bookCategory" required>
+                <option value="Fiction">Fiction</option>
+                <option value="Science">Science</option>
+                <option value="Technology">Technology</option>
+                <option value="Personal Growth">Personal Growth</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="bookCover">Cover Image URL</label>
+              <input id="bookCover" name="bookCover" type="url" placeholder="https://example.com/cover.jpg">
+            </div>
+
+            <div class="form-group form-group-full">
+              <label for="bookReadingLink">Book Reading Link *</label>
+              <input id="bookReadingLink" name="bookReadingLink" type="url" placeholder="https://openlibrary.org/..." required>
+              <small>Enter the link to the specific book on a legitimate reading website.</small>
+            </div>
+
+            <div class="form-group form-group-full">
+              <label for="bookDescription">Book Description</label>
+              <textarea id="bookDescription" name="bookDescription" rows="4" placeholder="Write a short description of the book..." maxlength="1500"></textarea>
+            </div>
+          </div>
+
+          <p class="form-message" id="formMessage" role="status"></p>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Add Book to Library</button>
+            <button class="btn btn-secondary" id="cancelAddBook" type="button">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <a href="#home" class="logo footer-logo"><span class="logo-icon">B</span> BookNest</a>
+        <p class="footer-description">A little space for a lifetime of discovery.</p>
+      </div>
+      <div class="project-credit">
+        <span>GitHub Class Project</span>
+        <strong>Shamim Akbari &amp; Sahar Musafiry</strong>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span id="currentYear"></span> BookNest</span>
+      <a href="#home">Back to top ↑</a>
+    </div>
+  </footer>
+</body>
+</html>
